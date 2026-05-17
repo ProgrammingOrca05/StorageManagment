@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace StorageManagement.Views.windows
+namespace StorageManagement
 {
     /// <summary>
-    /// Interaction logic for MainWIndow.xaml
+    /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWIndow : Window
+    public partial class MainWindow : Window
     {
-        public MainWIndow()
+        public MainWindow()
         {
             InitializeComponent();
         }

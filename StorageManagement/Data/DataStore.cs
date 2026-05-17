@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
+using StorageManagement.Models;
 
 namespace StorageManagement.Data
 {
-    public class DataStore
-    {
-    }
+    //public static class DataStore
+    //{
+    //    public static ObservableCollection<Product> Products { get; set; } = new();
+    //    public static ObservableCollection<Transaction> Transactions { get; set; } = new();
+    //}
 }
