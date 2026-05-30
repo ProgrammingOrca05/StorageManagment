@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StorageManagement.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,12 @@ namespace StorageManagement.Views.windows
         public LoginWIndow()
         {
             InitializeComponent();
+        }
+
+        private void LoginButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (DataContext is LoginViewModel vm)
+                vm.Password = PasswordBox.Password;
         }
     }
 }

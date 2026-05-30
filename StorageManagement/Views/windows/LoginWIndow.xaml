@@ -4,8 +4,17 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StorageManagement.Views.windows"
+        xmlns:vm="clr-namespace:StorageManagement.ViewModels"
         mc:Ignorable="d"
         Title="LoginWIndow" Height="450" Width="800">
+
+
+    <Window.DataContext>
+        <vm:LoginViewModel/>
+    </Window.DataContext>
+
+
+
     <Window.Resources>
         <!-- Rounded TextBox Style -->
         <Style x:Key="RoundedTextBox" TargetType="TextBox">
@@ -115,10 +124,11 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="20*"/>
+                <RowDefinition Height="30*"/>
                 <RowDefinition Height="40*"/>
                 <RowDefinition Height="40*"/>
-                <RowDefinition Height="40*"/>
+                <RowDefinition Height="30*"/>
+                <RowDefinition Height="15*"/>
             </Grid.RowDefinitions>
 
             <!-- ══════════════ ROW 0 — HEADER ══════════════ -->
@@ -165,6 +175,7 @@
             <TextBox Grid.Row="1" Grid.Column="1"
                      x:Name="UsernameTextBox"
                      Style="{StaticResource RoundedTextBox}"
+                     Text="{Binding Username,UpdateSourceTrigger=PropertyChanged}"
                      VerticalAlignment="Center"/>
 
             <!-- ══════════════ ROW 2 — PASSWORD ══════════════ -->
@@ -183,18 +194,25 @@
             VerticalAlignment="Center">
 
                 <Button x:Name="LoginButton"
-            Content="Login"
-            Style="{StaticResource LoginButton}"/>
+                        Content="Login"
+                        Style="{StaticResource LoginButton}"
+                        Click="LoginButton_Click"
+                        Command="{Binding LoginCommand}"
+                        />
 
-                <TextBlock x:Name="ErrorText"
-               Text=""
-               Foreground="#C0392B"
-               FontSize="13"
-               FontFamily="Segoe UI"
-               HorizontalAlignment="Center"
-               Margin="0 8 0 0"
-               Visibility="Collapsed"/>
+
             </StackPanel>
+
+            <TextBlock     x:Name="ErrorText"
+                           Grid.ColumnSpan="2"
+                           Grid.Row="4"
+                           Text="{Binding ErrorMessage,UpdateSourceTrigger=PropertyChanged}"
+                           Foreground="#C0392B"
+                           FontSize="15"
+                           FontFamily="Segoe UI"
+                           HorizontalAlignment="Center"
+                           Margin="0 8 0 0"
+                           />
 
         </Grid>
     </Border>
