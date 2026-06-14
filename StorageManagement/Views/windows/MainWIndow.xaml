@@ -3,10 +3,126 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:StorageManagement"
+        xmlns:vm="clr-namespace:StorageManagement.ViewModels"
+        xmlns:uc="clr-namespace:StorageManagement.Views.userControls"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Storage Management Master" Height="650" Width="1100"
+        WindowStartupLocation="CenterScreen"
+        Background="#EAF4FB">
+    <Window.DataContext>
+        <vm:MainViewModel/>
+    </Window.DataContext>
+
+    <Window.Resources>
+        <!-- DataTemplates to map ViewModels to their Views -->
+        <DataTemplate DataType="{x:Type vm:InventoryViewModel}">
+            <uc:InventoryView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:SalesTerminalViewModel}">
+            <uc:SalesTerminalView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:TransactionHistoryViewModel}">
+            <uc:TransactionHistoryView/>
+        </DataTemplate>
+
+        <!-- Sidebar button style -->
+        <Style x:Key="NavButton" TargetType="Button">
+            <Setter Property="Height" Value="48"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontFamily" Value="Segoe UI Semibold"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="Padding" Value="16 0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="10"
+                                Margin="8 4">
+                            <ContentPresenter VerticalAlignment="Center"
+                                              HorizontalAlignment="Left"
+                                              Margin="16 0"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#1A6FC4"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#155A9E"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
     <Grid>
-      
+        <Grid.ColumnDefinitions>
+            <!-- Sidebar -->
+            <ColumnDefinition Width="200"/>
+            <!-- Main content -->
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- ══════════════ SIDEBAR ══════════════ -->
+        <Border Grid.Column="0"
+                Background="#2B8BEB"
+                CornerRadius="0 14 14 0">
+            <StackPanel VerticalAlignment="Top" Margin="0 20 0 0">
+
+                <!-- App title -->
+                <TextBlock Text="SM-TPS"
+                           FontFamily="Segoe UI Black"
+                           FontSize="22"
+                           FontWeight="Bold"
+                           Foreground="White"
+                           HorizontalAlignment="Center"
+                           Margin="0 0 0 8">
+                    <TextBlock.Effect>
+                        <DropShadowEffect Color="Black" BlurRadius="0" ShadowDepth="1" Direction="315"/>
+                    </TextBlock.Effect>
+                </TextBlock>
+
+                <TextBlock Text="Store Management"
+                           FontFamily="Segoe UI"
+                           FontSize="11"
+                           Foreground="#BDE0F5"
+                           HorizontalAlignment="Center"
+                           Margin="0 0 0 24"/>
+
+                <!-- Divider -->
+                <Rectangle Height="1" Fill="#5AAEE8" Margin="16 0 16 16"/>
+
+                <!-- Nav buttons -->
+                <Button Content="📦  Inventory"
+                        Style="{StaticResource NavButton}"
+                        Command="{Binding ShowInventoryCommand}"/>
+
+                <Button Content="🛒  Sales Terminal"
+                        Style="{StaticResource NavButton}"
+                        Command="{Binding ShowSalesTerminalCommand}"/>
+
+                <Button Content="📋  Transaction History"
+                        Style="{StaticResource NavButton}"
+                        Command="{Binding ShowTransactionHistoryCommand}"/>
+
+            </StackPanel>
+        </Border>
+
+        <!-- ══════════════ MAIN CONTENT AREA ══════════════ -->
+        <Border Grid.Column="1" Margin="16" Background="White" CornerRadius="14">
+            <Border.Effect>
+                <DropShadowEffect Color="#BBCCDD" BlurRadius="12" ShadowDepth="2" Opacity="0.4"/>
+            </Border.Effect>
+            <!-- CurrentView swaps between the 3 UserControls -->
+            <ContentControl Content="{Binding CurrentView}"/>
+        </Border>
+
     </Grid>
 </Window>
