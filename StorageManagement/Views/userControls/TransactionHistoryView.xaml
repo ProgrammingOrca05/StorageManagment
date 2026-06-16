@@ -5,54 +5,115 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Margin="15">
+
+    <Grid Margin="15" Background="White">
+
+        <Grid.Resources>
+
+            <Style x:Key="RoundedButtonStyle" TargetType="Button">
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="FontFamily" Value="Segoe UI"/>
+                <Setter Property="FontWeight" Value="SemiBold"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Cursor" Value="Hand"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}"
+                                    CornerRadius="10">
+                                <ContentPresenter HorizontalAlignment="Center"
+                                                  VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style TargetType="TextBox">
+                <Setter Property="FontFamily" Value="Segoe UI"/>
+                <Setter Property="Padding" Value="8"/>
+                <Setter Property="Background" Value="#EFF6FF"/>
+                <Setter Property="BorderBrush" Value="#3B82F6"/>
+                <Setter Property="BorderThickness" Value="1.5"/>
+            </Style>
+
+            <Style TargetType="DataGrid">
+                <Setter Property="FontFamily" Value="Segoe UI"/>
+                <Setter Property="Background" Value="White"/>
+                <Setter Property="BorderBrush" Value="#BFDBFE"/>
+                <Setter Property="RowBackground" Value="White"/>
+                <Setter Property="AlternatingRowBackground" Value="#EFF6FF"/>
+            </Style>
+
+        </Grid.Resources>
+
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <!-- Search Bar -->
-        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,0,0,10">
+        <!-- Search -->
+        <StackPanel Orientation="Horizontal"
+                    Grid.Row="0"
+                    Margin="0,0,0,15">
+
             <TextBox Width="250"
-                     Padding="5"
                      Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
                      VerticalContentAlignment="Center"/>
+
             <Button Content="Search"
-                    Width="80"
+                    Width="100"
+                    Height="38"
                     Margin="10,0,0,0"
                     Command="{Binding SearchCommand}"
-                    Background="#1E3A8A"
-                    Foreground="White"
-                    FontFamily="Segoe UI"/>
+                    Background="#2563EB"
+                    Style="{StaticResource RoundedButtonStyle}"/>
         </StackPanel>
 
-        <!-- Transactions Table -->
-        <DataGrid Grid.Row="1"
-                  ItemsSource="{Binding FilteredTransactions}"
-                  SelectedItem="{Binding SelectedTransaction}"
-                  AutoGenerateColumns="False"
-                  IsReadOnly="True"
-                  FontFamily="Segoe UI">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="ID"      Binding="{Binding Id}"/>
-                <DataGridTextColumn Header="Date"    Binding="{Binding Date}"/>
-                <DataGridTextColumn Header="Subtotal" Binding="{Binding Subtotal}"/>
-                <DataGridTextColumn Header="Tax"     Binding="{Binding Tax}"/>
-                <DataGridTextColumn Header="Total"   Binding="{Binding Total}"/>
-                <DataGridTextColumn Header="Payment" Binding="{Binding PaymentMethod}"/>
-            </DataGrid.Columns>
-        </DataGrid>
+        <!-- DataGrid -->
+        <Border Grid.Row="1"
+                CornerRadius="12"
+                BorderBrush="#BFDBFE"
+                BorderThickness="1">
 
-        <!-- View Details Button -->
+            <DataGrid ItemsSource="{Binding FilteredTransactions}"
+                      SelectedItem="{Binding SelectedTransaction}"
+                      AutoGenerateColumns="False"
+                      IsReadOnly="True"
+                      HeadersVisibility="Column">
+
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="Background" Value="#2563EB"/>
+                        <Setter Property="Foreground" Value="White"/>
+                        <Setter Property="FontWeight" Value="Bold"/>
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding Id}"/>
+                    <DataGridTextColumn Header="Date" Binding="{Binding Date}"/>
+                    <DataGridTextColumn Header="Subtotal" Binding="{Binding Subtotal}"/>
+                    <DataGridTextColumn Header="Tax" Binding="{Binding Tax}"/>
+                    <DataGridTextColumn Header="Total" Binding="{Binding Total}"/>
+                    <DataGridTextColumn Header="Payment" Binding="{Binding PaymentMethod}"/>
+                </DataGrid.Columns>
+
+            </DataGrid>
+
+        </Border>
+
+        <!-- Details Button -->
         <Button Grid.Row="2"
                 Content="View Details"
-                Width="120"
+                Width="140"
+                Height="40"
                 HorizontalAlignment="Right"
-                Margin="0,10,0,0"
+                Margin="0,15,0,0"
                 Command="{Binding ViewDetailsCommand}"
                 Background="#3B82F6"
-                Foreground="White"
-                FontFamily="Segoe UI"/>
+                Style="{StaticResource RoundedButtonStyle}"/>
+
     </Grid>
 </UserControl>
