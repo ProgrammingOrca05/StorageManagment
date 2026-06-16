@@ -70,7 +70,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <!-- ══════════════ SIDEBAR ══════════════ -->
+        <!-- SIDEBAR -->
         <Border Grid.Column="0"
                 Background="#2B8BEB"
                 CornerRadius="0 14 14 0">
@@ -115,7 +115,7 @@
             </StackPanel>
         </Border>
 
-        <!-- ══════════════ MAIN CONTENT AREA ══════════════ -->
+        <!--MAIN CONTENT AREA-->
         <Border Grid.Column="1" Margin="16" Background="White" CornerRadius="14">
             <Border.Effect>
                 <DropShadowEffect Color="#BBCCDD" BlurRadius="12" ShadowDepth="2" Opacity="0.4"/>
