@@ -1,12 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StorageManagement.Models
 {
-    internal class Transaction
+    public class Transaction
     {
+        public int Id { get; set; }
+        public DateTime Date { get; set; }
+        public List<TransactionItem> Items { get; set; }
+        public decimal Subtotal { get; set; }
+        public decimal Tax { get; set; }
+        public decimal Total { get; set; }
+        public string PaymentMethod { get; set; }
+
+        public Transaction()
+        {
+            Items = new List<TransactionItem>();
+            Date = DateTime.Now;
+        }
     }
 }

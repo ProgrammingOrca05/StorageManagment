@@ -1,12 +1,58 @@
 ﻿<UserControl x:Class="StorageManagement.Views.userControls.TransactionHistoryView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:StorageManagement.Views.userControls"
-             mc:Ignorable="d" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Search Bar -->
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,0,0,10">
+            <TextBox Width="250"
+                     Padding="5"
+                     Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+                     VerticalContentAlignment="Center"/>
+            <Button Content="Search"
+                    Width="80"
+                    Margin="10,0,0,0"
+                    Command="{Binding SearchCommand}"
+                    Background="#1E3A8A"
+                    Foreground="White"
+                    FontFamily="Segoe UI"/>
+        </StackPanel>
+
+        <!-- Transactions Table -->
+        <DataGrid Grid.Row="1"
+                  ItemsSource="{Binding FilteredTransactions}"
+                  SelectedItem="{Binding SelectedTransaction}"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  FontFamily="Segoe UI">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID"      Binding="{Binding Id}"/>
+                <DataGridTextColumn Header="Date"    Binding="{Binding Date}"/>
+                <DataGridTextColumn Header="Subtotal" Binding="{Binding Subtotal}"/>
+                <DataGridTextColumn Header="Tax"     Binding="{Binding Tax}"/>
+                <DataGridTextColumn Header="Total"   Binding="{Binding Total}"/>
+                <DataGridTextColumn Header="Payment" Binding="{Binding PaymentMethod}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- View Details Button -->
+        <Button Grid.Row="2"
+                Content="View Details"
+                Width="120"
+                HorizontalAlignment="Right"
+                Margin="0,10,0,0"
+                Command="{Binding ViewDetailsCommand}"
+                Background="#3B82F6"
+                Foreground="White"
+                FontFamily="Segoe UI"/>
     </Grid>
 </UserControl>

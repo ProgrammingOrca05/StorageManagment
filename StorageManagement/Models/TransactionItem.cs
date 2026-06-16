@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace StorageManagement.Models
+﻿namespace StorageManagement.Models
 {
-    internal class TransactionItem
+    public class TransactionItem
     {
+        public int ProductId { get; set; }
+        public string ProductName { get; set; }
+        public int Quantity { get; set; }
+        public decimal Price { get; set; }
+        public decimal LineTotal => Quantity * Price;
     }
 }
