@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace StorageManagement.Models
 {
-    internal class Transaction
+    public  class Transaction
     {
+        public DateTime Date { get; set; }
+        public decimal TotalAmount { get; set; }
+        public List<TransactionItem> Items { get; set; }
     }
 }
