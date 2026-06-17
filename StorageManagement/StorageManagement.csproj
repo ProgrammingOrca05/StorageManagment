@@ -148,5 +148,11 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Assets\icons\box.ico" />
+    <Resource Include="Assets\icons\trans.ico" />
+    <Resource Include="Assets\icons\door.ico" />
+    <Resource Include="Assets\icons\paper.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

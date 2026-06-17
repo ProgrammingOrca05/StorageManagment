@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:StorageManagement.Views.windows"
         xmlns:vm="clr-namespace:StorageManagement.ViewModels"
         mc:Ignorable="d"
-        Title="LoginWIndow" Height="450" Width="800">
+        Title="LoginWIndow" Height="450" Width="800"
+        Icon="/Assets/icons/door.ico">
 
 
     <Window.DataContext>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StorageManagement.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,22 @@ namespace StorageManagement.Views.dialogs
         public CheckoutDialog()
         {
             InitializeComponent();
+        }
+
+        public CheckoutDialog(Transaction transaction)
+        {
+            InitializeComponent();
+            DataContext = transaction;
+        }
+
+        private void Confirm_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = true;
+        }
+
+        private void Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = false;
         }
     }
 }

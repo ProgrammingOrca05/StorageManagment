@@ -8,7 +8,8 @@
         mc:Ignorable="d"
         Title="Storage Management Master" Height="650" Width="1100"
         WindowStartupLocation="CenterScreen"
-        Background="#EAF4FB">
+        Background="#EAF4FB"
+        Icon="/Assets/icons/box.ico">
     <Window.DataContext>
         <vm:MainViewModel/>
     </Window.DataContext>

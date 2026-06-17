@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StorageManagement.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,12 @@ namespace StorageManagement.Views.dialogs
         public TransactionDetailDialog()
         {
             InitializeComponent();
+        }
+
+        public TransactionDetailDialog(Transaction transaction)
+        {
+            InitializeComponent();
+            DataContext = transaction;
         }
     }
 }

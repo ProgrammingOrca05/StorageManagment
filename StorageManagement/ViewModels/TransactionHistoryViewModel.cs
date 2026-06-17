@@ -1,12 +1,110 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
+using StorageManagement.Commands;
+using StorageManagement.Data;
+using StorageManagement.Models;
+using StorageManagement.Views.dialogs;
 
 namespace StorageManagement.ViewModels
 {
-    internal class TransactionHistoryViewModel
+    public class TransactionHistoryViewModel : ViewModelBase
     {
+        private ObservableCollection<Transaction> _transactions;
+        public ObservableCollection<Transaction> Transactions
+        {
+            get => _transactions;
+            set
+            {
+                _transactions = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private ObservableCollection<Transaction> _filteredTransactions;
+        public ObservableCollection<Transaction> FilteredTransactions
+        {
+            get => _filteredTransactions;
+            set
+            {
+                _filteredTransactions = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _searchText;
+        public string SearchText
+        {
+            get => _searchText;
+            set
+            {
+                _searchText = value;
+                OnPropertyChanged();
+                ApplyFilter();
+            }
+        }
+
+        private Transaction _selectedTransaction;
+        public Transaction SelectedTransaction
+        {
+            get => _selectedTransaction;
+            set
+            {
+                _selectedTransaction = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ICommand SearchCommand { get; }
+        public ICommand ViewDetailsCommand { get; }
+
+        public TransactionHistoryViewModel()
+        {
+            Transactions = DataStore.Transactions;
+            FilteredTransactions = DataStore.Transactions;
+
+            SearchCommand = new RelayCommand(_ => ApplyFilter());
+            ViewDetailsCommand = new RelayCommand(
+                _ => ViewDetails(),
+                _ => CanViewDetails()
+            );
+        }
+
+        private void ApplyFilter()
+        {
+            if (string.IsNullOrWhiteSpace(SearchText))
+            {
+                FilteredTransactions = new ObservableCollection<Transaction>(Transactions);
+                return;
+            }
+
+            string search = SearchText.Trim().ToLower();
+            var result = Transactions.Where(t =>
+                t.Id.ToString().Contains(search) ||
+                t.Date.ToString("g").ToLower().Contains(search) ||
+                t.Total.ToString("F2").Contains(search) ||
+                t.Items.Any(i => i.Product.Name.ToLower().Contains(search))
+            ).ToList();
+
+            FilteredTransactions = new ObservableCollection<Transaction>(result);
+        }
+
+        private bool CanViewDetails()
+        {
+            return SelectedTransaction != null;
+        }
+
+        private void ViewDetails()
+        {
+            if (SelectedTransaction == null)
+            {
+                MessageBox.Show("Choose the first invoice.");
+                return;
+            }
+
+            var dialog = new TransactionDetailDialog(SelectedTransaction);
+            dialog.ShowDialog();
+        }
     }
 }
