@@ -49,9 +49,11 @@ namespace StorageManagement.Models
 
         public int LowStockThreshold { get; set; } = 5;
 
-        public bool IsLowStock => Quantity <= LowStockThreshold;
+        public int OutOfStockThreshold { get; set; } = 0;
 
-        public string StatusText => IsLowStock ? "⚠ Low Stock" : "✓ In Stock";
+        public bool IsLowStock => Quantity <= LowStockThreshold && Quantity > OutOfStockThreshold;
+        public bool IsOutOfStock => Quantity <= OutOfStockThreshold;
+        public string StatusText => IsOutOfStock ? "✖ Out of Stock" : IsLowStock ? "⚠ Low Stock" : "✓ In Stock";
 
         public Product() { }
 
